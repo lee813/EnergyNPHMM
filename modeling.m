@@ -1,10 +1,11 @@
+dataLength = 721;
 uniq = unique(pecan(:,1));
 count = histc(pecan(:,1), uniq);
-notCompleteIdx = find(count~=722);
+notCompleteIdx = find(count~=dataLength);
 ids = uniq(notCompleteIdx)';
 for idx = 1:length(ids)
     findIdx = find(pecan(:,1) == ids(idx));
-     pecan(findIdx,:) = [];
+    pecan(findIdx,:) = [];
 end
 %% ------------------------------------------------- data init---
 % data = SeqData();
@@ -71,13 +72,17 @@ data6 = pecan(:,7);
 data = SeqData();
 
 stepDay = 30;
-stepLength = stepDay * 24 + 2;
-userCount = 34; 
+stepLength = dataLength;
+% stepDay * 24 + 2;
+
+% find user count with complete list for 1 month
+userCount = length(uniq) - length(ids);
+
 userData = cell(userCount,1);
 %phouseTmp= zeros(6,722);
 
 for idx = 0:userCount-1
-    fprintf('index %d \n',idx * stepLength + 1 );
+    fprintf('index %d %d \n',idx * stepLength + 1, idx );
     phouseTmp(1,:) = mapminmax(firstData(idx * stepLength + 1:(idx + 1) * stepLength)');
     phouseTmp(2,:) = mapminmax(secondData(idx * stepLength + 1:(idx + 1) * stepLength)');
     phouseTmp(3,:) = mapminmax(data3(idx * stepLength + 1:(idx + 1) * stepLength)');
