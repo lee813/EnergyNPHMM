@@ -1,6 +1,6 @@
-dataLength = 721;
 uniq = unique(pecan(:,1));
 count = histc(pecan(:,1), uniq);
+dataLength = count(1,1);
 notCompleteIdx = find(count~=dataLength);
 ids = uniq(notCompleteIdx)';
 for idx = 1:length(ids)
@@ -79,7 +79,7 @@ stepLength = dataLength;
 userCount = length(uniq) - length(ids);
 
 userData = cell(userCount,1);
-%phouseTmp= zeros(6,722);
+phouseTmp= zeros(6,dataLength);
 
 for idx = 0:userCount-1
     fprintf('index %d %d \n',idx * stepLength + 1, idx );
